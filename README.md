@@ -21,12 +21,25 @@ The API provides endpoints for managing posts and database tables. Use the follo
 
 ## API Endpoints
 
+
 ### GET /posts/:table?
 
 Fetches all posts from the specified table. If no table is specified, it defaults to the "home" table.
 
 - **URL Params:**
   - `table` (optional) - The name of the table to fetch posts from.
+    
+- **Axios Usage Examples:**
+    ```javascript
+          axios.get('/posts/home')
+          .then(response => {
+           console.log(response.data);
+          })
+          .catch(error => {
+           console.error("There was an error fetching the posts!", error);
+          });
+    ```
+
 - **Success Response:**
   - **Code:** 200
   - **Content:** 
@@ -48,10 +61,20 @@ Fetches all posts from the specified table. If no table is specified, it default
     ```json
     { "error": "Error fetching posts" }
     ```
-
+#
 ### GET /tables/all
 
 Returns a list of all tables in the "public" schema.
+- **Axios Usage Examples:**
+    ```javascript
+        axios.get('/tables/all')
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error("There was an error fetching the tables!", error);
+          });
+    ```
 
 - **Success Response:**
   - **Code:** 200
@@ -69,13 +92,25 @@ Returns a list of all tables in the "public" schema.
     ```json
     { "error": "Error fetching tables" }
     ```
-
+#
 ### GET /posts/:id
 
 Fetches a specific post by ID from the "home" table.
 
 - **URL Params:**
   - `id` (required) - The ID of the post to fetch.
+
+- **Axios Usage Examples:**
+    ```javascript
+       axios.get('/posts/1')
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the post!", error);
+      });
+    ```
+
 - **Success Response:**
   - **Code:** 200
   - **Content:** 
@@ -99,7 +134,7 @@ Fetches a specific post by ID from the "home" table.
     ```json
     { "error": "Error fetching post" }
     ```
-
+#
 ### POST /posts
 
 Creates a new post in the "home" table.
@@ -108,6 +143,22 @@ Creates a new post in the "home" table.
   - `title` (string, required)
   - `content` (string, required)
   - `author` (string, required)
+ 
+- **Axios Usage Examples:**
+    ```javascript
+        axios.post('/posts', {
+            title: 'New Post Title',
+            content: 'This is the content of the new post.',
+            author: 'Author Name'
+          })
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error("There was an error creating the post!", error);
+          });
+    ```
+
 - **Success Response:**
   - **Code:** 200
   - **Content:** 
@@ -128,7 +179,7 @@ Creates a new post in the "home" table.
     ```json
     { "error": "Error creating post" }
     ```
-
+#
 ### PATCH /posts/:id
 
 Updates a specific post by ID in the "home" table. Only the fields provided in the request body will be updated.
@@ -139,6 +190,21 @@ Updates a specific post by ID in the "home" table. Only the fields provided in t
   - `title` (string, optional)
   - `content` (string, optional)
   - `author` (string, optional)
+
+ - **Axios Usage Examples:**
+    ```javascript
+        axios.patch('/posts/1', {
+            title: 'Updated Post Title',
+            content: 'This is the updated content of the post.'
+          })
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error("There was an error updating the post!", error);
+          });
+    ```
+
 - **Success Response:**
   - **Code:** 200
   - **Content:** 
@@ -162,13 +228,24 @@ Updates a specific post by ID in the "home" table. Only the fields provided in t
     ```json
     { "error": "Error updating post" }
     ```
-
+#
 ### DELETE /posts/:id
 
 Deletes a specific post by ID from the "home" table.
 
 - **URL Params:**
   - `id` (required) - The ID of the post to delete.
+- **Axios Usage Examples:**
+    ```javascript
+        axios.delete('/posts/1')
+              .then(response => {
+                console.log(response.data);
+              })
+              .catch(error => {
+                console.error("There was an error deleting the post!", error);
+              });
+    ```
+
 - **Success Response:**
   - **Code:** 200
   - **Content:** 
@@ -186,13 +263,27 @@ Deletes a specific post by ID from the "home" table.
     ```json
     { "error": "Error deleting post" }
     ```
-
+#
 ### POST /posts/data
 
 Creates a new table that inherits from the "home" table.
 
 - **Request Body:**
   - `table` (string, required) - The name of the table to create.
+ 
+- **Axios Usage Examples:**
+    ```javascript
+        axios.post('/posts/data', {
+            table: 'new_table_name'
+          })
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error("There was an error creating the table!", error);
+          });
+    ```
+
 - **Success Response:**
   - **Code:** 200
   - **Content:** 
@@ -205,19 +296,9 @@ Creates a new table that inherits from the "home" table.
     ```json
     { "error": "Error creating table" }
     ```
-
-## Axios Usage Examples
-
-### GET /posts/:table?
-
-Fetch all posts from the specified table or from the "home" table by default.
-
-```javascript
-axios.get('/posts/home')
-.then(response => {
- console.log(response.data);
-})
-.catch(error => {
- console.error("There was an error fetching the posts!", error);
-});```
-
+#
+### Contributing
+ Feel free to submit issues and pull requests. Contributions are welcome!
+#
+### License
+This project is licensed under the MIT License - see the LICENSE file for details.
